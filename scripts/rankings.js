@@ -6,26 +6,33 @@ async function loadRankings() {
     
     data.sort((a, b) => (a.bestSingle || Infinity) - (b.bestSingle || Infinity));
 
-    data.forEach((player, index) => {
-      const row = document.createElement("div");
-      row.className = "row data";
+let rank = 1; // counter for displayed rows only
 
-      const [win, loss] = (player.winLoss?.split("-") || ["0", "0"]);
+data.forEach((player) => {
+  const [win, loss] = (player.winLoss?.split("-")) || [0, 0];
 
-      row.innerHTML = `
-        <div class="rank">${index + 1}</div>
-        <div class="stats glass hover">
-          <div class="player"> ${player.name || "N/A"}</div>
-          <div>${player.bestSingle?.toFixed(3) || "0.00"}</div>
-          <div>${player.seasonMean?.toFixed(3) || "0.00"}</div>
-          <div>${player.elimMean?.toFixed(3) || "0.00"}</div>
-          <div>-</div>
-          <div><span class="win">${win}</span> / <span class="loss">${loss}</span></div>
-        </div>
-      `;
+  // Skip players with 0-0 record
+  if (win == 0 && loss == 0) return;
 
-      table.appendChild(row);
-    });
+  const row = document.createElement("div");
+  row.className = "row data";
+
+  row.innerHTML = `
+    <div class="rank">${rank}</div>
+    <div class="stats glass hover">
+      <div class="player">${player.name || "N/A"}</div>
+      <div>${player.bestSingle?.toFixed(3) || "0.00"}</div>
+      <div>${player.seasonMean?.toFixed(3) || "0.00"}</div>
+      <div>${player.elimMean?.toFixed(3) || "0.00"}</div>
+      <div>-</div>
+      <div><span class="win">${win}</span> / <span class="loss">${loss}</span></div>
+    </div>
+  `;
+
+  table.appendChild(row);
+  rank++;
+});
+
     
   } catch (err) {
     console.error("Fetch error:", err);

@@ -57,3 +57,46 @@
 .loss {
     color:rgb(236, 64, 64)
 }
+
+/* TOOL TIP  */
+
+.info-icon {
+  font-style: normal;
+  cursor: pointer;
+  color: #888;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    text-align: left;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* position above */
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 300px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: center;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}

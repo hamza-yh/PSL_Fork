@@ -1,8 +1,11 @@
 /* profile header */
 
 .profile-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+
     gap: 40px;
     margin: 50px;
 }
@@ -17,10 +20,22 @@
 
 .profile-header img {
     width: 100%;
+      mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+
 }
 
+.profile-image-container {
+  background-image: url(/assets/images/transparent_logo.png);
+  background-size: cover; /* make it fill container */
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  max-width: 500px;
+}
+
+
 /* profile stats */
-.profile-stats {
+.profile-stats {    
     display: flex;
     justify-content: space-around;
     gap: 45px;
@@ -93,7 +108,6 @@
 }
 
 /* set styles */
-
 .match-sets {
     display: flex;
     flex-direction: column;
@@ -136,6 +150,22 @@
     font-weight: bold;
 }
 
+.solve-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.solve-info svg {
+    width: 15px;
+    height: 15px;
+    color: white;
+}
+
+.solve-info svg.dark-link {
+    color: rgb(127, 127, 127)
+}
 /* match footer  */
 
 .match-footer  {

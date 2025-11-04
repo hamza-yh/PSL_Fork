@@ -14,20 +14,55 @@
     <!---->
 
     <section class="rankings-section">
-        <h1 class="title fade-down">Rankings</h1>
-        <div class="table">
-            <div class="row header">
-                <div id="position">#</div>
-                <div class="stats">
-                    <div class="player">PLAYER</div>
-                    <div>BEST</div>
-                    <div>MEAN</div>
-                    <div>CLUTCH</div>
-                    <div>VARIENCE</div>
-                    <div>W/L</div>
-                </div>          
+    <h1 class="title fade-down">Rankings</h1>
+    <div class="table">
+        <div class="row header">
+        <div id="position">#</div>
+        <div class="stats">
+            <div class="player">PLAYER</div>
+
+            <div class="stat">
+            BEST
+            <span class="tooltip">
+                <i class="info-icon">ⓘ</i>
+                <span class="tooltip-text">Fastest single solve time</span>
+            </span>
+            </div>
+
+            <div class="stat">
+            MEAN
+            <span class="tooltip">
+                <i class="info-icon">ⓘ</i>
+                <span class="tooltip-text">Average of all matches played</span>
+            </span>
+            </div>
+
+            <div class="stat">
+            ELIM MEAN
+            <span class="tooltip">
+                <i class="info-icon">ⓘ</i>
+                <span class="tooltip-text">Average during elimination rounds</span>
+            </span>
+            </div>
+
+            <div class="stat">
+            VARIANCE
+            <span class="tooltip">
+                <i class="info-icon">ⓘ</i>
+                <span class="tooltip-text">Consistency across solves</span>
+            </span>
+            </div>
+
+            <div class="stat">
+            W/L
+            <span class="tooltip">
+                <i class="info-icon">ⓘ</i>
+                <span class="tooltip-text">Win to loss ratio</span>
+            </span>
             </div>
         </div>
+        </div>
+    </div>
     </section>
 
     <script src="/scripts/navbar.js"></script>

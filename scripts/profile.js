@@ -15,26 +15,71 @@ function truncateAtWord(str, maxLength) {
     return trimmed.substr(0, trimmed.lastIndexOf(' '));
 }
 
-function restructureData(data) {
-  const result = {
-    name: data.name,
-    seasonMean: data.seasonMean,
-    bestSingle: data.bestSingle,
-    elimMean: data.elimMean,
-    winLoss: data.winLoss,
-    matches: [],
-  };
+// Truncate a number to `decimals` decimal places without rounding.
+// Returns a string with fixed decimals (e.g. 1.234 -> "1.23").
+function truncateNumber(num, decimals = 2) {
+    if (typeof num !== 'number' || !isFinite(num)) return null;
+    const factor = Math.pow(10, decimals);
+    const truncated = Math.trunc(num * factor) / factor;
+    return truncated.toFixed(decimals);
+}
 
-  for (const [matchId, matchData] of Object.entries(data.sets)) {
-    const setsMap = new Map();
+const toEmbed = url => {
+  const u = new URL(url);
+  const id = u.pathname.split("/").pop();
+  const si = u.searchParams.get("si");
+  const t = +u.searchParams.get("t") + 1 || 0;
+  return `https://www.youtube.com/embed/${id}?si=${si}&amp;start=${t}`;
+};
+
+function restructureData(data) {
+
+    
+    let fastestTime = Infinity;
+    let fastestUrl = null;
+
+    for (const setId in data.sets) {
+    const set = data.sets[setId];
+    for (const solve of set.solves) {
+        const time = solve.competitorTime;
+        if (typeof time === "number" && time > 0 && time < fastestTime) {
+                fastestTime = time;
+                fastestUrl = solve.youtubeUrl;
+            }
+        }
+    }
+
+    const result = {
+        name: data.name,
+        seasonMean: truncateNumber(data.seasonMean),
+        bestSingle: truncateNumber(data.bestSingle),
+        elimMean: truncateNumber(data.elimMean),
+        winLoss: data.winLoss,
+        fastestTime: fastestTime === Infinity ? null : truncateNumber(fastestTime),
+        fastestUrl: toEmbed(fastestUrl),
+        solveVariance: -1,
+        season: 1,
+        totalEvents: -1,
+        totalSeasons: -1,
+        bestPlacement: -1,
+        ranking: 1, // Placeholder for ranking, can be set dynamically
+        profileImageURL: `/assets/profile_images/${data.name}.png`, // Placeholder for profile image URL
+        matches: [],
+    };
+
+
+    for (const [matchId, matchData] of Object.entries(data.sets)) {
+        const setsMap = new Map();
 
     // Group solves by game number (set)
     for (const solve of matchData.solves) {
       const setNum = solve.game;
       if (!setsMap.has(setNum)) setsMap.set(setNum, []);
       setsMap.get(setNum).push({
-        competitorTime: solve.competitorTime,
-        opponentTime: solve.opponentTime,
+        competitorTime: truncateNumber(solve.competitorTime),
+        competitorURL: solve.youtubeUrl, // Placeholder URL
+        opponentURL: solve.youtubeUrl, // Placeholder URL
+        opponentTime: truncateNumber(solve.opponentTime),
         win: solve.competitorWins,
       });
     }
@@ -67,6 +112,7 @@ function restructureData(data) {
       opponent: matchData.opponent || "N/A",
       score: `${totalSetWins}-${totalSetLosses}`,
       win: totalSetWins > totalSetLosses ? 1 : 0,
+      matchName: 'Winners Final - PSL Berkeley',
       sets,
     });
   }
@@ -107,15 +153,19 @@ function renderMatch(match, data) {
                     </div> 
                     <div class="set-solve collapsed">    
                         ${set.solves.map((solve, i) => `
-                            <div class="align-right solve-time ${solve.win ?"":"dark"}">${solve.competitorTime?.toFixed(2) ?? "N/A"}</div>
-                            <div class="align-center">${i}</div>
-                            <div class="align-left solve-time ${solve.win ?"dark":""}">${solve.opponentTime?.toFixed(2) ?? "N/A"}</div>
+                            <div class="align-right solve-time ${solve.win ?"":"dark"}">${solve.competitorTime ?? "N/A"}</div>
+                            <div class="align-center solve-info">
+                                <div class="link"><a href="${solve.competitorURL}" ><svg class="${solve.win ?"":"dark-link"}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M290.4 19.8C295.4 7.8 307.1 0 320 0L480 0c17.7 0 32 14.3 32 32l0 160c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9L400 157.3 246.6 310.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L354.7 112 297.4 54.6c-9.2-9.2-11.9-22.9-6.9-34.9zM0 176c0-44.2 35.8-80 80-80l80 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-80 0c-8.8 0-16 7.2-16 16l0 256c0 8.8 7.2 16 16 16l256 0c8.8 0 16-7.2 16-16l0-80c0-17.7 14.3-32 32-32s32 14.3 32 32l0 80c0 44.2-35.8 80-80 80L80 512c-44.2 0-80-35.8-80-80L0 176z"/></svg></a></div>
+                                <div>${i}</div>
+                                <div class="link"><a href="${solve.opponentURL}" ><svg class="${solve.win ?"dark-link":""}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M290.4 19.8C295.4 7.8 307.1 0 320 0L480 0c17.7 0 32 14.3 32 32l0 160c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9L400 157.3 246.6 310.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L354.7 112 297.4 54.6c-9.2-9.2-11.9-22.9-6.9-34.9zM0 176c0-44.2 35.8-80 80-80l80 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-80 0c-8.8 0-16 7.2-16 16l0 256c0 8.8 7.2 16 16 16l256 0c8.8 0 16-7.2 16-16l0-80c0-17.7 14.3-32 32-32s32 14.3 32 32l0 80c0 44.2-35.8 80-80 80L80 512c-44.2 0-80-35.8-80-80L0 176z"/></svg></a></div>
+                            </div>
+                            <div class="align-left solve-time ${solve.win ?"dark":""}">${solve.opponentTime ?? "N/A"}</div>
                         `).join("")}
                     </div>
                 </div>
             `).join("")}
             <div class="match-footer">
-                <div>Winners Final - PSL Berkeley</div>
+                <div>${match.matchName}</div>
                 <div class="link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M290.4 19.8C295.4 7.8 307.1 0 320 0L480 0c17.7 0 32 14.3 32 32l0 160c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9L400 157.3 246.6 310.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L354.7 112 297.4 54.6c-9.2-9.2-11.9-22.9-6.9-34.9zM0 176c0-44.2 35.8-80 80-80l80 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-80 0c-8.8 0-16 7.2-16 16l0 256c0 8.8 7.2 16 16 16l256 0c8.8 0 16-7.2 16-16l0-80c0-17.7 14.3-32 32-32s32 14.3 32 32l0 80c0 44.2-35.8 80-80 80L80 512c-44.2 0-80-35.8-80-80L0 176z"/></svg></div>
             </div>
         </div>
@@ -125,16 +175,12 @@ function renderMatch(match, data) {
 
 async function renderProfile() {
     const id = getPersonId();
-    const footer = document.querySelector("#navbar"); // supports <footer> or <div id="footer">
+    const footer = document.querySelector("#navbar");
     const addSection = (html) => footer.insertAdjacentHTML("afterend", html);
-
-    //placeholder image and data
-    const imageUrl = "https://avatars.worldcubeassociation.org/66ckfr3s1yjcyw4p1mvuke6libhl"
-    const season = "1";
-    const ranking = 1;
 
     const response = await fetch(`https://api.timebase.live/psl/competitor-profile?name=${encodeURIComponent(id)}`);
     const data = restructureData(await response.json());
+    console.log(data);
     if (!id) {
         profileDiv.textContent = "No ID provided in the URL.";
         return;
@@ -144,10 +190,12 @@ async function renderProfile() {
     const sectionHeader = `
     <section class="profile-header">
         <div>
-            <h2>Ranked ${ordinal(ranking)} - Season ${season}</h2>
+            <h2>Ranked ${ordinal(data.ranking)} - Season ${data.season}</h2>
             <h1 class="title name fade-down">${data.name}</h1>
         </div>
-        <img src="${imageUrl}" alt="Profile Image" class="profile-image">
+        <div class="profile-image-container">
+        <img src="${data.profileImageURL}" alt="Profile Image" class="profile-image">
+        </div>
     </section>`;
 
     // profile stats
@@ -163,8 +211,8 @@ async function renderProfile() {
                 <div class="label">SEASON MEAN</div>
             </div>
             <div>
-                <div class="value solve-time">${data.clutchFactor ?? "-"}</div>
-                <div class="label">CLUTCH FACTOR</div>
+                <div class="value solve-time">${data.elimMean ?? "-"}</div>
+                <div class="label">ELIMINATION MEAN</div>
             </div>
             <div>
                 <div class="value solve-time">${data.solveVariance ?? "-"}</div>
@@ -177,17 +225,18 @@ async function renderProfile() {
                 <div class="value solve-time">${data.bestPlacement ?? "-"}</div>
                 <div class="label">BEST PLACEMENT</div>
             </div>
-            <div class="stat-item">
-                <div class="value solve-time">${data.totalEvents ?? "-"}</div>
-                <div class="label">TOTAL EVENTS</div>
-            </div>
+
             <div class="stat-item">
                 <div class="value">${data.winLoss ?? "-"}</div>
                 <div class="label">WIN LOSS RECORD</div>
             </div>
             <div class="stat-item">
-                <div class="value"></div>
-                <div class="label"></div>
+                <div class="value solve-time">${data.totalEvents ?? "-"}</div>
+                <div class="label">TOTAL EVENTS</div>
+            </div>
+            <div class="stat-item">
+                <div class="value">${data.totalSeasons ?? "-"}</div>
+                <div class="label">TOTAL SEASONS</div>
             </div>
         </div>
     </section>`;
@@ -196,13 +245,8 @@ async function renderProfile() {
     const sectionVideos = `
     <section class="videos-section">
         <div>
-            <h1 class="title">Best Match Performance</h1>
-            <div class="video"><iframe width="560" height="315" src="https://www.youtube.com/embed/OIlCvKddaZk?si=mXzGoScAknyIEYy8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-            <div class="video-footer">Winners Final - PSL Berkeley</div>
-        </div>
-        <div>
-            <h1 class="title">Best Solve - ${data.bestSingle}</h1>
-            <div class="video"><iframe width="560" height="315" src="https://www.youtube.com/embed/OIlCvKddaZk?si=mXzGoScAknyIEYy8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+            <h1 class="title">Best Solve - ${data.fastestTime}</h1>
+            <div class="video"><iframe width="560" height="315" src=${data.fastestUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
             <div class="video-footer">Winners Final - PSL Berkeley</div>
 
         </div>
