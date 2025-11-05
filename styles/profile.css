@@ -80,7 +80,7 @@
 
     /* for a single column layout */
     grid-template-columns: 1fr;
-    max-width: 500px;
+    width: 600px;
 }
 
 .match-header {

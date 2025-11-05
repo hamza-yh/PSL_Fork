@@ -21,10 +21,10 @@ data.forEach((player) => {
     <div class="rank">${rank}</div>
     <div class="stats glass hover">
       <div class="player">${player.name || "N/A"}</div>
-      <div>${player.bestSingle?.toFixed(3) || "0.00"}</div>
-      <div>${player.seasonMean?.toFixed(3) || "0.00"}</div>
-      <div>${player.elimMean?.toFixed(3) || "0.00"}</div>
-      <div>-</div>
+      <div>${player.bestSingle?.toFixed(3)}</div>
+      <div>${player.seasonMean?.toFixed(3)}</div>
+      <div>${player.elimMean?.toFixed(3)}</div>
+      <div>${player.solveVariance?.toFixed(3)}</div>
       <div><span class="win">${win}</span> / <span class="loss">${loss}</span></div>
     </div>
   `;
