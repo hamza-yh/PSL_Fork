@@ -98,10 +98,10 @@ const closeBtn = document.getElementById('close-popup');
 // Content data for each event
 const eventData = [
     {
-        imageSrc: 'assets/images/pslv_thumbnail.jpg',
-        title: 'PSL Las Vegas',
-        link: 'https://start.gg/pslv',
-        description: 'Join us on September 1st, 2025 for our third PSL event, located at SpeedCubeShop headquarters in Las Vegas, Nevada!'
+        imageSrc: 'assets/images/space_needle.webp',
+        title: 'PSL Seattle',
+        link: 'https://start.gg/psls',
+        description: 'Join us on October 12th, 2025 for our fifth PSL event, located in GameWorks Seattle at 1511 7th Ave, Seattle, Washington!'
     },
     {
         imageSrc: 'assets/images/happyft_logo.png',
