@@ -31,7 +31,7 @@ const toEmbed = url => {
   const id = u.pathname.split("/").pop();
   const si = u.searchParams.get("si");
   const t = +u.searchParams.get("t") + 1 || 0;
-  return `https://www.youtube.com/embed/${id}?si=${si}&amp;start=${t}`;
+  return `https://www.youtube.com/embed/${id}?&amp;start=${t}`;
 };
 
 
@@ -172,14 +172,19 @@ async function renderProfile() {
         return best.url;
     }
 
-    const bestUrl = findBestSolveUrl(data);
+    let bestUrl = findBestSolveUrl(data);
     console.log(bestUrl)
-    console.log(bestUrl.replace('/live/','/embed/'))
+
+    if (bestUrl.has("live")) {
+        bestUrl = toEmbed(bestUrl);
+    }
+    
+    console.log(toEmbed(bestUrl))
     const sectionVideos = `
     <section class="videos-section">
         <div>
             <h1 class="title">Best Solve - ${data.bestSingle}</h1>
-            <div class="video"><iframe width="560" height="315" src=${bestUrl.replace('/live/','/embed/')} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+            <div class="video"><iframe width="560" height="315" src=${bestUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
             <div class="video-footer">Winners Final - PSL Berkeley</div>
 
         </div>
