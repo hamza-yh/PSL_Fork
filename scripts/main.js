@@ -98,10 +98,10 @@ const closeBtn = document.getElementById('close-popup');
 // Content data for each event
 const eventData = [
     {
-        imageSrc: 'assets/images/pslv_thumbnail.jpg',
-        title: 'PSL Las Vegas',
-        link: 'https://start.gg/pslv',
-        description: 'Join us on September 1st, 2025 for our third PSL event, located at SpeedCubeShop headquarters in Las Vegas, Nevada!'
+        imageSrc: 'assets/images/space_needle.webp',
+        title: 'PSL Michigan',
+        link: 'https://start.gg/psls',
+        description: 'Join us on February 21th, 2026 for our sixth PSL event, located in Port Huron Michigan!',
     },
     {
         imageSrc: 'assets/images/happyft_logo.png',

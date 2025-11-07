@@ -579,6 +579,14 @@ Sponsors Page
     border-radius: 25px;
 }
 
+/* ensure non-square logos render as square like the others */
+.partners img.square-logo {
+    width: 400px;
+    height: 400px;
+    object-fit: contain;
+    background: #000; /* optional backdrop to match site theme */
+}
+
 .partners img:hover {
     outline:5px solid #0080ff;
 }
