@@ -99,9 +99,9 @@ const closeBtn = document.getElementById('close-popup');
 const eventData = [
     {
         imageSrc: 'assets/images/space_needle.webp',
-        title: 'PSL Seattle',
+        title: 'PSL Michigan',
         link: 'https://start.gg/psls',
-        description: 'Join us on October 12th, 2025 for our fifth PSL event, located in GameWorks Seattle at 1511 7th Ave, Seattle, Washington!'
+        description: 'Join us on February 21th, 2026 for our sixth PSL event, located in Port Huron Michigan!',
     },
     {
         imageSrc: 'assets/images/happyft_logo.png',
