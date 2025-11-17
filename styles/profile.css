@@ -81,6 +81,10 @@
     padding: 30px;
 }
 
+
+.matches-list h3 {
+    white-space: nowrap;
+}
 .profile-stats .value {
     font-size: 1.5rem;
     color: white;

@@ -173,7 +173,7 @@ async function renderProfile() {
             <div class="stat-item">
                 <div class="value">${data.totalSeasons ?? "-"}</div>
                 <div class="label">TOTAL SEASON${data.totalSeasons !== 1 ? 'S' : ''}</div>
-            </div>
+            </div>m
         </div>
 
 
