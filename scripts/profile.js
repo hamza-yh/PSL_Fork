@@ -194,13 +194,14 @@ async function renderProfile() {
     </div>
     </section>`;
 
+    if (data.bestSolveUrl.includes("live")) data.bestSolveUrl = toEmbed(data.bestSolveUrl);
     const sectionVideos = `
     <section class="videos-section">
         <div>
             <h1 class="title">${data.bestSingle}</h1>
             <h1 >Best Single Solve</h1>
         </div>
-        <div class="video"><iframe width="560" height="315" src=${toEmbed(data.bestSolveUrl)} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+        <div class="video"><iframe width="560" height="315" src=${data.bestSolveUrl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
     </section>`;
 
     // profile matches
