@@ -122,10 +122,6 @@ async function renderProfile() {
         <div>
             <h1 class="title rank fade-down">Ranked ${ordinal(data.rank)}</h1>
             <h1 class="title name fade-down">${data.name}</h1>
-            <h2>
-            Competed in ${data.totalEvents} matche${data.totalEvents !== 1 ? 's' : ''} 
-            over ${data.totalSeasons} season${data.totalSeasons !== 1 ? 's' : ''}
-            </h2>        
         </div>
         <div class="profile-image-container">
         <img src="${`/assets/profile_images/${data.name}.png`}" alt="Profile Image" class="profile-image">
@@ -158,12 +154,29 @@ async function renderProfile() {
                 <div class="value solve-time">${displayTime(data.solveVariance ?? -2)}</div>
                 <div class="label">SOLVE VARIANCE</div>
             </div>
+            <div>
+                <div class="value solve-time">${(data.totalErrors/data.totalSolves).toFixed(3)}%</div>
+                <div class="label">ERROR RATE</div>
+            </div>
             <div class="stat-item">
                 <div class="value solve-time"><span class="win">${data.matchWins}</span> - <span class="loss">${data.matchLosses}</span></div>
                 <div class="label">SET RECORD</div>
             </div>
         </div>
     </div>
+    
+            <div class="mid-stats">
+            <div class="stat-item">
+                <div class="value solve-time">${data.totalEvents }</div>
+                <div class="label">TOTAL MATCH${data.totalEvents !== 1 ? 'ES' : ''} </div>
+            </div>
+            <div class="stat-item">
+                <div class="value">${data.totalSeasons ?? "-"}</div>
+                <div class="label">TOTAL SEASON${data.totalSeasons !== 1 ? 'S' : ''}</div>
+            </div>
+        </div>
+
+
     <div>
         <div>
             <h2 class="stats-title">Career Stats</h2>
@@ -184,6 +197,10 @@ async function renderProfile() {
             <div>
                 <div class="value solve-time">${displayTime(data.solveVariance ?? -2)}</div>
                 <div class="label">SOLVE VARIANCE</div>
+            </div>
+            <div>
+                <div class="value solve-time">${(data.totalErrors/data.totalSolves).toFixed(3)}%</div>
+                <div class="label">ERROR RATE</div>
             </div>
             <div class="stat-item">
                 <div class="value solve-time"><span class="win">${data.matchWins}</span> - <span class="loss">${data.matchLosses}</span></div>
@@ -208,8 +225,8 @@ async function renderProfile() {
     const sectionMatches = `
     <section class="matches-list">
         <h1 class="matches-title title">Recent Matches</h1>
-        <h3> Click on the video icon to watch an athlete solve from any PSL match!</h3>
-    ${data.matches.map((match, mi) => renderMatch(match, data, mi)).join("")}
+        <h3> Click on the video icon to watch a solve from any PSL match!</h3>
+    ${data.matches.slice().reverse().map((match, mi) => renderMatch(match, data, mi)).join("")}
     </section>`;
 
     [sectionSeason, sectionHeader, sectionStats, sectionVideos, sectionMatches].reverse().forEach(addSection);
