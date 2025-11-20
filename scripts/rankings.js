@@ -36,7 +36,7 @@ async function loadRankings() {
           <div>${displayTime(player.seasonMean)}</div>
           <div>${displayTime(player.elimMean)}</div>
           <div>${displayTime(player.solveVariance)}</div>
-          <div>${displayTime(player.totalErrors/player.totalSolves)}%</div>
+          <div>${displayTime(player.totalErrors * 100/player.totalSolves)}%</div>
 
           <div><span class="win">${win}</span> - <span class="loss">${loss}</span></div>
         </div>

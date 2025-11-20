@@ -121,6 +121,7 @@ async function renderProfile() {
     </section>`;
 
     // profile stats
+    console.log(data.totalErrors,data.totalSolves)
     const sectionStats = `
     <section class="profile-stats glass">
     <div>
@@ -145,7 +146,7 @@ async function renderProfile() {
                 <div class="label">SOLVE VARIANCE</div>
             </div>
             <div>
-                <div class="value solve-time">${(data.totalErrors/data.totalSolves).toFixed(3)}%</div>
+                <div class="value solve-time">${(data.totalErrors/data.totalSolves * 100).toFixed(3)}%</div>
                 <div class="label">ERROR RATE</div>
             </div>
             <div class="stat-item">
@@ -186,7 +187,7 @@ async function renderProfile() {
                 <div class="label">SOLVE VARIANCE</div>
             </div>
             <div>
-                <div class="value solve-time">${(data.totalErrors/data.totalSolves).toFixed(3)}%</div>
+                <div class="value solve-time">${(data.totalErrors/data.totalSolves * 100).toFixed(3)}%</div>
                 <div class="label">ERROR RATE</div>
             </div>
             <div class="stat-item">
