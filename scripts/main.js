@@ -98,16 +98,22 @@ const closeBtn = document.getElementById('close-popup');
 // Content data for each event
 const eventData = [
     {
-        imageSrc: 'assets/images/space_needle.webp',
+        imageSrc: 'assets/images/michigan-square.jpg',
         title: 'PSL Michigan',
         link: 'https://www.start.gg/tournament/premier-speedcubing-league-michigan-open/details',
         description: 'Join us on February 21th, 2026 for our sixth PSL event, located in Port Huron Michigan!',
     },
     {
-        imageSrc: 'assets/images/happyft_logo.png',
-        title: 'The Speedcubing.tv Cup',
-        link: 'pages/speedcubingtvcup.html',
-        description: 'An online tournament run by our partner, Speedcubing.tv! The winner of this tournament will receive a free ticket to entry for a future PSL Event!',
+        imageSrc: 'assets/images/oregon_square.png',
+        title: 'PSL Oregon',
+        link: 'https://www.start.gg/tournament/premier-speedcubing-league-oregon-2026-1/details',
+        description: 'Join us on March 14th, 2026 for the first 2026 season PSL event, located in Central Point, Oregon!',
+    },
+    {
+        imageSrc: 'assets/images/psl_davis.jpg',
+        title: 'PSL Davis',
+        link: 'https://www.start.gg/tournament/premier-speedcubing-league-davis-2026/details',
+        description: 'Join us on April 18th, 2026 for the second 2026 season PSL event, located in Davis, California!',
     }
 ];
 

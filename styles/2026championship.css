@@ -1,0 +1,29 @@
+  .qualification-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+
+  .qualification-table th,
+  .qualification-table td {
+    border: 1px solid white;
+    padding: 12px;
+    vertical-align: top;
+    text-align: left;
+  }
+
+
+  .qualification-table th{
+    font-weight: bold;
+    color:white;
+    text-align: center;
+  }
+
+  .qualification-table td {
+    font-size: 20px;
+  }
+
+  .destination {
+    display: flex;
+    gap:20px;
+  }
