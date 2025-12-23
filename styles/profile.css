@@ -1,22 +1,34 @@
+.loading {
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 50px 0;
+  color: white;
+  font-weight: bold;
+}
+
+.win {
+    color:rgb(62, 229, 62);
+}
+
+.loss {
+    color:rgb(236, 64, 64)
+}
+
 /* profile header */
+
+.season {
+    font-size: 40px;
+    margin-top: 20px;
+}
 
 .profile-header {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-
-
     gap: 40px;
     margin-left: 50px;
 }
 
-.title .season {
-    font-size: 20px;
-}
-.season {
-    font-size: 40px;
-
-}
 .profile-header .title {
     font-size: 80px;
     font-family: Gontserrat-SemiBold;
@@ -28,13 +40,10 @@
 .profile-header .rank {
     font-size: 40px;
     font-family: Garet;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
     font-style: italic;
-    
 }
-.profile-header div {
+
+.profile-header div:nth-child(1) {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,19 +52,15 @@
 
 .profile-header img {
     width: 100%;
-      mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
-
+    mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
 }
 
 .profile-image-container {
-  background-image: url(/assets/images/transparent_logo.png);
-  background-size:contain; /* make it fill container */
-  background-repeat: no-repeat;
-  display: flex;
-  justify-content: center;
-  max-width: 500px;
+    background-image: url(/assets/images/transparent_logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    max-width: 500px;
 }
-
 
 /* profile stats */
 .profile-stats {    
@@ -83,31 +88,11 @@
     justify-content: center;
 }
 
-
-.set-toggle {
-    position: absolute;
-    top: 2px;
-    right: 6px;
-    cursor: pointer;
-    opacity: 0.7;
-    transition: transform 0.3s ease;
-    transform: rotate(180deg);
-
-
-}
-
-/* when rotated (set expanded) */
-.set-toggle.rotated {
-  transform: rotate(0deg);
-}
 .stats-title {
     font-size: 40px;
     margin-bottom: 20px;
     grid-column: span 3;
     text-align: center;
-}
-.profile-stats .value {
-    font-size: 30px;
 }
 
 /* matches section */
@@ -116,20 +101,17 @@
     margin-top: 50px;
 }
 
+.matches-list h3 {
+    white-space: nowrap;
+}
+
 .matches-list {
-
-
     gap: 50px;
     color:white;
     margin: 50px 0px;
     margin-left: auto;
     margin-right: auto;
     display: grid;
-    
-    /* for a grid layout */
-    /* grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));     */
-
-    /* for a single column layout */
     grid-template-columns: 1fr;
     width: 600px;
 }
@@ -141,6 +123,20 @@
     font-weight: bold;
     font-size: 28px;
     gap: 30px;
+}
+
+.set-toggle {
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: transform 0.3s ease;
+    transform: rotate(180deg);
+}
+
+.set-toggle.rotated {
+  transform: rotate(0deg);
 }
 
 .comp-name, .opp-name {
@@ -164,7 +160,6 @@
     flex-direction: column;
     gap: 10px;
     margin-top: 15px;
-
 }
 
 .set {
@@ -179,8 +174,6 @@
     position: relative;
     font-size: 20px;
 }
-
-
 
 .set > div {
     display: grid;
@@ -244,10 +237,17 @@
 .link {
     display: flex;
     align-items: center;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 }
-
+.link a {
+    display: flex;
+    align-items: center;  
+}
+.link svg {
+    width: 100%;
+    height: 100%;
+}
 /* general  */
 .align-left {
     text-align: left;

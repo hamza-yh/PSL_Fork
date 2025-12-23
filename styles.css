@@ -293,8 +293,8 @@ header and banner
     justify-content: space-between;
     align-items: baseline;
     flex-wrap: wrap;
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .banner .button-link{

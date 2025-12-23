@@ -22,7 +22,7 @@
     display: grid;
     text-align: center;
     padding: 15px;
-    grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 5px
 }
 
@@ -33,6 +33,24 @@
     justify-content: center;
 }
 
+.best-solve {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.link {
+    width: 25px;
+}
+
+.link a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .rank {
 font-family: 'title-font', 'Gontserrat-SemiBold', Helvetica, Arial, sans-serif;
 font-size: 40px;
@@ -42,9 +60,7 @@ font-size: 40px;
     color: white;
 }
 
-.stats .player {
-    /* font-size: 16px; */
-}
+
 #position {
     display: flex;
     align-items: center;
@@ -71,11 +87,11 @@ font-size: 40px;
 }
 
 .win {
-    color:rgb(62, 229, 62);
+    color:rgba(62, 229, 62);
 }
 
 .loss {
-    color:rgb(236, 64, 64)
+    color:rgba(236, 64, 64)
 }
 
 /* TOOL TIP  */
