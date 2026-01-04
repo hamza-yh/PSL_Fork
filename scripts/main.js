@@ -101,7 +101,7 @@ const eventData = [
         imageSrc: 'assets/images/michigan-square.jpg',
         title: 'PSL Michigan',
         link: 'https://www.start.gg/tournament/premier-speedcubing-league-michigan-open/details',
-        description: 'Join us on February 21th, 2026 for our sixth PSL event, located in Port Huron Michigan!',
+        description: 'Join us on February 21th, 2026 for our last event in the 2025 PSL season, located in Port Huron Michigan',
     },
     {
         imageSrc: 'assets/images/oregon_square.png',
